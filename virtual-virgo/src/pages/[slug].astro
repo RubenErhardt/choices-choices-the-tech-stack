@@ -1,13 +1,13 @@
 ---
 import Header from '../components/01_Header.astro';
+import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import wp from '../lib/wordpress.js'; 
+import ArtikelKlein from '../components/ArtikelKlein.astro';
 
-// Define getStaticPaths to fetch posts
 export async function getStaticPaths() {
-    const posts = await wp.posts().perPage(); // Fetch posts from the API
+    const posts = await wp.posts().perPage();
 
-    // Create an array of paths from the post slugs
     const paths = posts.map(post => ({
         params: { slug: post.slug }
     }));
@@ -15,15 +15,16 @@ export async function getStaticPaths() {
     return paths;
 }
 
-// Get the slug from the URL parameters
 const { slug } = Astro.params;
 
-// Fetch the posts again to find the specific post for this slug
 const posts = await wp.posts().perPage();
-const post = posts.find(p => p.slug === slug); // Find the specific post by slug
+const post = posts.find(p => p.slug === slug);
 
-const postContent = post ? post.content.rendered : "Geen inhoud beschikbaar."; // Fallback message if content is empty
+const postContent = post ? post.content.rendered : "Geen inhoud beschikbaar."; 
 ---
+
+<Layout title={slug}>
+
 
 <Header />
 
@@ -40,10 +41,26 @@ const postContent = post ? post.content.rendered : "Geen inhoud beschikbaar."; /
     )}
 </main>
 
+<div class="artikel-klein">
+<ArtikelKlein/>
+</div>
+
 <Footer />
 
 <style>
-    body{
-        margin: 0;
+
+    main {
+        max-width: var(--article-width);
+        padding: 0 1em;
+    }
+
+    article {
+        margin-top: 2em;
+    }
+
+    .artikel-klein{
+        align-items: center;
+        display: flex;
+        justify-content: center;
     }
 </style>
