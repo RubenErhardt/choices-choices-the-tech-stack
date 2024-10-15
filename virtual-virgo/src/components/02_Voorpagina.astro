@@ -10,6 +10,7 @@ const latestPost = posts[0];
     {latestPost ? (
         <>
             <div class="article-text">
+                <div class="article-published">14 OKT</div>
                 <h1>
                     <a href={`/${latestPost.slug}`}>{latestPost.title.rendered}</a>
                 </h1>
@@ -38,6 +39,14 @@ const latestPost = posts[0];
 
 
 <style>
+
+.article-published {
+    background-color: black;
+    color: white;
+    font-size: 13px; /* Kleinere lettergrootte om het blokje compacter te maken */
+    width: 60px; /* Blijf de breedte behouden */
+    text-align: center;
+}
     .front-section {
         display: grid;
         margin-top: 20px;

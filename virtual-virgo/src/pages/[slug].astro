@@ -20,7 +20,6 @@ const { slug } = Astro.params;
 const posts = await wp.posts().perPage();
 const post = posts.find(p => p.slug === slug);
 
-const postContent = post ? post.content.rendered : "Geen inhoud beschikbaar."; 
 ---
 
 <Layout title={slug}>
@@ -32,8 +31,8 @@ const postContent = post ? post.content.rendered : "Geen inhoud beschikbaar.";
     {post ? (
         <article>
             <h1>{post.title.rendered}</h1>
-            <div>{postContent}</div> 
             <p>door <strong>{post.yoast_head_json?.author || "Onbekende auteur"}</strong></p>
+            <p>{post.content.rendered}</p>
             <p>{post.excerpt.rendered}</p>
         </article>
     ) : (
