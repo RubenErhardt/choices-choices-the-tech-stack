@@ -2,6 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/01_Header.astro';
 import Footer from '../components/Footer.astro'
+import wp from '../lib/wordpress.js'; // Zorg ervoor dat deze import correct is
+
+// Verkrijg de posts van de WordPress API
+const posts = await wp.posts().perPage(5); // Haal de laatste 5 posts op
+
+// Debug: Controleer of de posts zijn opgehaald
+console.log('Posts:', posts);
+
+
+const dateFormat = {
+	month: 'short',
+	day: 'numeric',
+};
 ---
 
 <Layout title="Red Pers">
@@ -11,6 +24,8 @@ import Footer from '../components/Footer.astro'
 
 <main>
 </main>
+
+
 
 <footer>
 	<Footer />

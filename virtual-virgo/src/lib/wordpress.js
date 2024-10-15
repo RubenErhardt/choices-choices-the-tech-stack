@@ -1,11 +1,10 @@
-import { PUBLIC_APIURL } from '$env/static/public';
 import WPAPI from 'wpapi';
 
 const wp = new WPAPI({
-	endpoint: PUBLIC_APIURL
+	endpoint: import.meta.env.PUBLIC_APIURL
 });
 
-export default wp
+export default wp;
 
-//BRON
-// https://www.npmjs.com/package/wpapi	
+// BRON
+// https://www.npmjs.com/package/wpapi

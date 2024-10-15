@@ -1,5 +1,3 @@
-
-// This is an array with the data for categories with all the correct id's and slugs
 export const categoriesData = [
     {"id": 9, "name": "Binnenland", "slug": "binnenland"},
     {"id": 1010, "name": "Buitenland", "slug": "buitenland"}, 
