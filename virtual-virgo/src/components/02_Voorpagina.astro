@@ -1,11 +1,73 @@
-<section class="front-pagina"> hier wil ik een groot artikel en een grote afbeelding
-    <section class="onder-front">hier wil ik 3 artikelen</section>
+---
+import wp from '../lib/wordpress.js';
+const posts = await wp.posts().perPage(20); 
+import Artikelklein from '../components/ArtikelKlein.astro'
+
+const latestPost = posts[0]; 
+---
+
+<section class="front-section">
+    {latestPost ? (
+        <>
+            <div class="article-text">
+                <h1>
+                    <a href={`/${latestPost.slug}`}>{latestPost.title.rendered}</a>
+                </h1>
+                <p>{latestPost.excerpt.rendered}</p>
+                <p>{latestPost.yoast_head_json?.author || "Unknown Author"}</p>
+            </div>
+            <div class="article-img">
+                {latestPost.yoast_head_json?.og_image && latestPost.yoast_head_json.og_image.length > 0 ? (
+                    <img 
+                        src={latestPost.yoast_head_json.og_image[0].url} 
+                        alt="Artikel afbeelding" 
+                    />
+                ) : (
+                    <p>Geen afbeelding beschikbaar</p>
+                )}
+            </div>
+        </>
+    ) : (
+        <p>Geen laatste post beschikbaar</p>
+    )}
 </section>
 
-<section class="donatie"></section>
-<section class="binnenland"></section>
-<section class="buitenland"></section>
+<section class="onder-front">
+<Artikelklein/>
+</section>
 
 
+<style>
+    .front-section {
+        display: grid;
+        margin-top: 20px;
+        grid-template-columns: 1fr 2fr; 
+        gap: 10px;
+    }
+    
+    .article-text {
+        border: 1.5px solid #000000;
+        width: 400px; 
+        background-color: white;
+    }
+
+    .article-text h1, .article-text p{
+        padding: 20px;
+    }
+
+    h1{
+        font-size: 32px;
+        line-height: 25px;
+    }
+    
+    .article-img {
+        border: 1.5px solid #000000; /* Rand voor visuele scheiding */
+    }
+    
+    .article-img img {
+        max-width: 100%; /* Maak de afbeelding responsief */
+        height: auto; /* Houd de hoogte in verhouding */
+    }
+    </style>
 
 

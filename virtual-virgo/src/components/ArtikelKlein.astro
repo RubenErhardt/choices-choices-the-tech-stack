@@ -1,0 +1,65 @@
+---
+import wp from '../lib/wordpress.js';
+const posts = await wp.posts().perPage(20); 
+const otherPosts = posts.slice(1, 4); 
+---
+
+<section class="onder-front">
+    {otherPosts.length > 0 ? (
+        otherPosts.map((post) => ( 
+            <a href={`/${post.slug}`} class="article-link" aria-label={post.title.rendered}>
+                <article>
+                    {post.yoast_head_json?.og_image && post.yoast_head_json.og_image.length > 0 ? (
+                        <img src={post.yoast_head_json.og_image[0].url} alt="Artikel afbeelding" />
+                    ) : (
+                        <p>Geen afbeelding beschikbaar</p>
+                    )}
+                    <h2>{post.title.rendered}</h2>
+                    <p>door {post.yoast_head_json.author} </p>
+                </article>
+            </a>
+        ))
+    ) : (
+        <p>Geen andere artikelen beschikbaar</p>
+    )}
+</section>
+
+<style>
+    .onder-front {
+        display: grid; /* Changed to grid */
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+        gap: 20px; /* Space between grid items */
+        margin: 20px 0; /* Optional margin for top/bottom */
+    }
+    
+    .article-link {
+        text-decoration: none; 
+    }
+
+    article {
+        border: 1.5px solid #000000;
+        cursor: pointer;
+        height: 510px; /* Maintain consistent height */
+        display: flex; /* Use flex for content alignment */
+        flex-direction: column; /* Stack content vertically */
+    }
+
+    article img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    article h2 {
+        padding: 10px;
+        margin: 0; /* Reset margin */
+        color: black;
+        flex-grow: 1; /* Pushes the footer down */
+    }
+
+    article p {
+        padding: 10px;
+        color: #7B7B7A;
+        margin: 0; /* Reset margin */
+    }
+</style>

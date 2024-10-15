@@ -1,0 +1,49 @@
+---
+import Header from '../components/01_Header.astro';
+import Footer from '../components/Footer.astro';
+import wp from '../lib/wordpress.js'; 
+
+// Define getStaticPaths to fetch posts
+export async function getStaticPaths() {
+    const posts = await wp.posts().perPage(); // Fetch posts from the API
+
+    // Create an array of paths from the post slugs
+    const paths = posts.map(post => ({
+        params: { slug: post.slug }
+    }));
+
+    return paths;
+}
+
+// Get the slug from the URL parameters
+const { slug } = Astro.params;
+
+// Fetch the posts again to find the specific post for this slug
+const posts = await wp.posts().perPage();
+const post = posts.find(p => p.slug === slug); // Find the specific post by slug
+
+const postContent = post ? post.content.rendered : "Geen inhoud beschikbaar."; // Fallback message if content is empty
+---
+
+<Header />
+
+<main>
+    {post ? (
+        <article>
+            <h1>{post.title.rendered}</h1>
+            <div>{postContent}</div> 
+            <p>door <strong>{post.yoast_head_json?.author || "Onbekende auteur"}</strong></p>
+            <p>{post.excerpt.rendered}</p>
+        </article>
+    ) : (
+        <p>Geen post beschikbaar</p> 
+    )}
+</main>
+
+<Footer />
+
+<style>
+    body{
+        margin: 0;
+    }
+</style>
