@@ -10,7 +10,7 @@ const latestPost = posts[0];
     {latestPost ? (
         <>
             <div class="article-text">
-                <div class="article-published">14 OKT</div>
+                <div class="article-published">16 OKT</div>
                 <h1>
                     <a href={`/${latestPost.slug}`}>{latestPost.title.rendered}</a>
                 </h1>
@@ -21,7 +21,7 @@ const latestPost = posts[0];
                 {latestPost.yoast_head_json?.og_image && latestPost.yoast_head_json.og_image.length > 0 ? (
                     <img 
                         src={latestPost.yoast_head_json.og_image[0].url} 
-                        alt="Artikel afbeelding" 
+                        alt="Artikel afbeelding"
                     />
                 ) : (
                     <p>Geen afbeelding beschikbaar</p>
@@ -74,8 +74,8 @@ const latestPost = posts[0];
     }
     
     .article-img img {
-        max-width: 100%; /* Maak de afbeelding responsief */
-        height: auto; /* Houd de hoogte in verhouding */
+        max-width: 100%; 
+        height: auto; 
     }
     </style>
 
