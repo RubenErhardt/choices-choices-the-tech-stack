@@ -6,20 +6,18 @@ import wp from '../lib/wordpress.js';
 import ArtikelKlein from '../components/ArtikelKlein.astro';
 
 export async function getStaticPaths() {
-    const posts = await wp.posts().perPage();
+    const posts = await wp.posts().perPage(); // Haalt alle berichten op van de WordPress API
 
     const paths = posts.map(post => ({
-        params: { slug: post.slug }
+        params: { slug: post.slug } // Genereert een array voor elke post, gebaseerd op de 'slug'
     }));
 
     return paths;
 }
 
-const { slug } = Astro.params;
-
-const posts = await wp.posts().perPage();
-const post = posts.find(p => p.slug === slug);
-
+const { slug } = Astro.params; // Haalt de 'slug' op uit de URL-parameters
+const posts = await wp.posts().perPage(); // Haalt alle berichten op van de WordPress API
+const post = posts.find(p => p.slug === slug); // Vindt de post die overeenkomt met de slug
 ---
 
 <Layout title={slug}>
@@ -31,7 +29,7 @@ const post = posts.find(p => p.slug === slug);
     {post ? (
         <article>
             <h1>{post.title.rendered}</h1>
-            <p>door <strong>{post.yoast_head_json?.author || "Onbekende auteur"}</strong></p>
+            <p>door {post.yoast_head_json?.author || "Onbekende auteur"}</p>
             <p>{post.excerpt.rendered}</p>
         </article>
     ) : (

@@ -4,9 +4,6 @@ import Header from '../components/01_Header.astro';
 import Voorpagina from '../components/02_Voorpagina.astro'
 import Footer from '../components/Footer.astro'
 
-
-
-
 const dateFormat = {
 	month: 'short',
 	day: 'numeric',
@@ -15,19 +12,19 @@ const dateFormat = {
 
 <Layout title="Red Pers">
 <header>
-	<Header client:load/>
+	<Header />
 </header>
 
 <main>
-<Voorpagina client:visible/>
+<Voorpagina />
 </main>
 
 
 
 <footer>
-	<Footer client:visible />
+	<Footer />
 </footer>
 		
-		<style>
+<style>
 
-		</style>
+</style>

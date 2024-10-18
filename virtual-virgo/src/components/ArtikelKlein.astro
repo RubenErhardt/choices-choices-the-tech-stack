@@ -9,7 +9,7 @@ const otherPosts = posts.slice(1, 4);
         otherPosts.map((post) => ( 
             <a href={`/${post.slug}`} class="article-link" aria-label={post.title.rendered}>
                 <article>
-                    {post.yoast_head_json?.og_image && post.yoast_head_json.og_image.length > 0 ? (
+                    {post.yoast_head_json.og_image.length > 0 ? (
                         <img src={post.yoast_head_json.og_image[0].url} alt="Artikel afbeelding" />
                     ) : (
                         <p>Geen afbeelding beschikbaar</p>
